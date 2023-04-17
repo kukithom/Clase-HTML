@@ -5,11 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>odontologia Carlos</title>
+    <link rel="shortcut icon" href="https://cdn.swisscows.com/image?url=http%3A%2F%2Fwww.medicavis.com%2Fwp-content%2Fuploads%2F2016%2F09%2Fdent-blanche.png">
 </head>
 <body>
 <div>
      <header>
-     <h1>doc. Carlos Dientes   -   Contacto</h1>
+     <h1>doc. Carlos Dientes   -   Contacto <img src="https://cdn.swisscows.com/image?url=https%3A%2F%2Fwww.pngfactory.net%2F_png%2F_thumb%2F20631-bubka-Phone.png" style="height: auto; width: 4%; margin-left: 20px; margin-top:20px;"> </h1>
      <hr>
      </header>
 </div>
@@ -23,30 +24,87 @@
     <br>
     <hr>
 </div>
+
 <div>
+
     <h2>Formulario de Contacto para Carlos Dientes</h2>
+
      <hr>
-    <form method="post" action="contacto">
-        <label>Hombre<input type="checkbox"></label>
-        <label> Mujer <input type="checkbox"></label>
+
+    <form onsubmit="sendContact(event)">
+
+     <div>
+
+         <br>
+
+        <input type="name" name="nombres" rows="1" placeholder="Nombre" required id="nombre"></input>
          <br><br>
-        <input type="text" placeholder="Nombre" required>
+        <input type="text" name="apellidos" rows="1" placeholder="Apellido" required id="apellido"></input>
          <br><br>
-        <input type="text" placeholder="Apellido" required>
+        <input type="number" name="edades" rows="1" placeholder="Edad" required id="edad1"></input>
          <br><br>
-        <input type="number" placeholder="Edad" required>
+         <input type="email" name="mails" rows="1" placeholder="Email" required id="mail"></input>
          <br><br>
+
         <label>Donde vivis?</label>
-        <select>
+        <select name="localidad1" id="localidad" required id="localidad">
             <option>La Plata</option>
             <option>Otro lugar</option>
         </select>
          <br><br>
-        <input type="submit" name="Enviar">
+
+    </div>
+
+        <button type="submit">Enviar</button>
          <br><br>
          <hr>
 
     </form>
+
+</div>
+
+<div>
+
+    <script>
+
+        async function sendContact(ev) {
+            ev.preventDefault();
+
+          const nombreC = document
+          .getElementById('nombre').value;
+          const apellidoC = document
+          .getElementById('apellido').value;
+          const edadC = document
+          .getElementById('edad1').value;
+          const mailC = document
+          .getElementById('mail').value;
+          const localidadC  = document
+          .getElementById('localidad').value;
+
+                const webhookBody = {
+            embeds: [{
+                title: 'Formulario recibido!',
+                fields: [
+                { name: 'Nombre', value: nombreC},
+                { name: 'Apellido', value: apellidoC},
+                { name: 'Edad', value: edadC},
+                { name: 'Email', value: mailC},
+                { name: 'Localidad', value:localidadC}
+                ]
+            }],
+         };
+            
+                const webhookUrl = 'EL WEBHOOK DE DISCORD LOCO';
+
+                const response = await fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(webhookBody),
+                });
+            }
+    </script>
 </div>
 <div>
     <ul>
